@@ -1,0 +1,21 @@
+/* src/Loader.css */
+.loader {
+    border: 8px solid rgba(255, 255, 255, 0.3);
+    border-top: 8px solid white; /* Change this color for the spinner */
+    border-radius: 50%;
+    width: 90px;
+    transition: 1.3s ease infinite;
+    height: 90px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+      border-top: 8px solid rgb(119, 44, 44);
+    }
+    100% {
+      transform: rotate(360deg);
+      border-top: 8px solid rgb(219, 223, 33);
+    }
+  }
