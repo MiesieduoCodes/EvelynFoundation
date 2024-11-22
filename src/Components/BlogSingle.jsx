@@ -10,19 +10,50 @@ const BlogSingle = () => {
 
       {/* Hero Section */}
       <div className="relative flex items-center justify-center h-[100vh] p-8 text-white"
-        style={{ backgroundImage: "url('src/Images/DSC_0390.JPG')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <motion.div
-          className="max-w-96 text-center"
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}>
-          <h1 className="text-3xl md:text-6xl font-bold">
-            School in Africa Needs Renovations
-          </h1>
-          <p className="text-2xl mt-4">by Admin on July 26, 2018</p>
-        </motion.div>
+      style={{ backgroundImage: "url('src/Images/DSC_0390.JPG')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      
+      {/* Gradient overlay for text visibility */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
+
+      {/* Hero Content */}
+      <motion.div
+        className="text-center max-w-4xl mx-auto px-4 py-8"
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        {/* Main Title with Animation */}
+        <motion.h1
+          className="text-4xl md:text-6xl font-extrabold leading-tight mb-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        >
+          School in Africa Needs Renovations
+        </motion.h1>
+
+        {/* Meta Information */}
+        <p className="text-lg md:text-2xl mb-6">
+          by Admin on July 26, 2018
+        </p>
+
+        {/* Call-to-Action Button or Scroll Indicator */}
+        <motion.a
+          href="#content"
+          className="inline-block text-xl bg-blue-600 text-white py-3 px-8 rounded-full transition-transform transform hover:scale-105"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1 }}
+        >
+          Read More
+        </motion.a>
+      </motion.div>
+
+      {/* Scroll Indicator (optional) */}
+      <div className="absolute bottom-10 text-center text-lg">
+        <p className="animate-bounce">↓ Scroll Down</p>
       </div>
+    </div>
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto p-10 space-y-8">
