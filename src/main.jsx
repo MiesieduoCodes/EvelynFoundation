@@ -13,7 +13,7 @@ import BlogSingle from "./Components/BlogSingle";
 
 const router = createBrowserRouter([
   {
-    path: "/home",
+    path: "/",
     element: <Home />, // Main component
   },
   {
