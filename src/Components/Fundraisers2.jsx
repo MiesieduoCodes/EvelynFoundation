@@ -7,49 +7,75 @@ const Fundraisers2 = () => {
       className="relative w-full h-screen bg-cover bg-center"
       style={{ backgroundImage: `url(${Donate})` }} // Use the imported image
     >
-      <div className="absolute inset-0 bg-green-500 opacity-50"></div>
-      <div className="relative flex flex-col items-center justify-center h-full p-4 md:p-8">
-        <div className="flex flex-col md:flex-row items-start justify-between w-full max-w-6xl gap-8">
+      <div className="absolute inset-0 bg-black opacity-60"></div> {/* Darker overlay for contrast */}
+      
+      <div className="relative flex flex-col items-center justify-center h-full px-6 md:px-12">
+        <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-7xl gap-12">
           
-          <div className="border-solid border-4 border-white md:w-1/2 flex justify-center">
-            <img className="w-full h-auto max-w-xs md:max-w-[450px]" src={Donate} alt="Donation" />
-          </div>
-          
-          <div className="flex flex-col text-left w-full md:w-1/2">
+          {/* Left Section - Image */}
+          <motion.div
+            className="md:w-1/2 flex justify-center"
+            initial={{ opacity: 0, scale: 0.8 }} 
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+          >
+            <img 
+              className="w-full h-auto max-w-xs md:max-w-[450px] rounded-xl shadow-2xl"
+              src={Donate} 
+              alt="Donation"
+            />
+          </motion.div>
+
+          {/* Right Section - Text */}
+          <motion.div 
+            className="flex flex-col text-left w-full md:w-1/2 space-y-8"
+            initial={{ opacity: 0, y: 50 }} 
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+          >
             <motion.h2
-              className="text-white text-4xl md:text-3xl font-light"
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8 }}
+              className="text-white text-4xl md:text-5xl font-semibold tracking-wide uppercase"
+              initial={{ opacity: 0, y: -50 }} 
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              FEATURED
+              Featured
             </motion.h2>
 
             <motion.p
-              className="text-white text-4xl md:text-3xl font-bold"
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
+              className="text-white text-2xl md:text-3xl lg:text-4xl font-extrabold leading-tight"
+              initial={{ opacity: 0, y: 50 }} 
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              Far far away, behind the word<br />
-              mountains, far from the countries<br />
-              Vokalia and Consonantia, there live the<br />
+              Far far away, behind the word
+              <br />
+              mountains, far from the countries
+              <br />
+              Vokalia and Consonantia, there live the
+              <br />
               blind texts.
             </motion.p>
 
             <motion.p
-              className="text-white text-4xl md:text-xl font-light"
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8 }}
+              className="text-white text-xl md:text-2xl font-light italic"
+              initial={{ opacity: 0, y: 50 }} 
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
             >
               <i>Last donation 1w ago</i>
             </motion.p>
-            
-            <button className="mt-4 bg-blue-600 text-white w-fit px-4 py-2 rounded">
+
+            <motion.button
+              initial={{ opacity: 0, y: 50 }} 
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.6 }}
+              className="mt-6 bg-blue-600 hover:bg-blue-700 text-white text-lg px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 ease-out"
+            >
               Read The Full Story
-            </button>
-          </div>          
+            </motion.button>
+          </motion.div>
+          
         </div>
       </div>
     </div>

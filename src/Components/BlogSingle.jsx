@@ -1,5 +1,6 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Loader from './Loader';
 import { motion } from "framer-motion";
 
 const BlogSingle = () => {
@@ -7,7 +8,7 @@ const BlogSingle = () => {
     <div className="bg-gray-100">
 
       <Navbar />
-
+      <Loader />
       {/* Hero Section */}
       <div className="relative flex items-center justify-center h-[100vh] p-8 text-white"
       style={{ backgroundImage: "url('src/Images/DSC_0390.JPG')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
@@ -29,7 +30,7 @@ const BlogSingle = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          School in Africa Needs Renovations
+          Help Build Schools in Africa - Donate Today
         </motion.h1>
 
         {/* Meta Information */}
@@ -62,13 +63,34 @@ const BlogSingle = () => {
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}>
+
+          {/* Content about the charity cause */}
           <p className="text-lg leading-relaxed text-gray-700">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit, quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro adipisci sapiente officiis nemo accusamus ad praesentium? Esse minima nisi et.
-            Molestiae cupiditate inventore animi, maxime sapiente optio, illo est nemo veritatis repellat sunt doloribus nesciunt! 
-            Temporibus ad error suscipit exercitationem hic molestiae totam obcaecati rerum, eius aut, in.
-            Quisquam esse aliquam fuga distinctio, quidem delectus veritatis reiciendis. Nihil explicabo quod, est eos ipsum.
-            Odit voluptatibus, eveniet vel nihil cum ullam dolores laborum, quo velit commodi rerum eum quidem pariatur!
+            Schools in rural Africa are in dire need of renovations. Many children in these communities lack access to basic facilities and educational resources. With your help, we can make a difference. Your donation will go directly towards renovating classrooms, providing clean drinking water, and giving children the resources they need to succeed.
           </p>
+          <p className="text-lg leading-relaxed text-gray-700">
+            We believe every child deserves access to quality education. By donating today, you can help build a better future for these children. Together, we can empower the next generation of leaders.
+          </p>
+        </motion.div>
+
+        {/* Donation Section */}
+        <motion.div
+          className="space-y-4"
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}>
+          <h2 className="text-2xl font-semibold mb-4">Make a Donation</h2>
+          <p className="text-lg leading-relaxed text-gray-700">
+            Your donation can change lives. Whether it&apos;s providing books, school supplies, or building a new school, every contribution makes a difference. Choose how you’d like to contribute:
+          </p>
+          <ul className="list-disc pl-5">
+            <li>Donate a one-time amount to support the project</li>
+            <li>Set up a recurring donation to help us sustain our efforts</li>
+            <li>Give in-kind donations such as educational materials</li>
+          </ul>
+          <button className="bg-blue-600 text-white py-3 px-6 rounded mt-4 hover:bg-blue-700 transform hover:scale-105 transition-all duration-300">
+            Donate Now
+          </button>
         </motion.div>
 
         {/* Comment Section */}
@@ -96,7 +118,7 @@ const BlogSingle = () => {
           transition={{ duration: 0.8 }}>
           <h2 className="text-xl font-bold mb-4">About The Author</h2>
           <p className="text-lg text-gray-700">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!
+            Our founder has spent over 10 years working in education and charity. After seeing the challenges faced by underprivileged communities in Africa, they decided to take action and create lasting change through education. Their mission is to ensure every child has access to the resources they need to succeed and break the cycle of poverty.
           </p>
         </motion.div>
       </div>

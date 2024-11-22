@@ -1,45 +1,46 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { motion } from "framer-motion";
+import Loader from './Loader';
 import { Link } from 'react-router-dom';
 const Blog = () => {
   const posts = [
     { 
-      title: 'Be A Volunteer Today', 
+      title: 'Donate Today, Save A Child’s Life', 
       date: 'July 26, 2018',
       image: 'src/Images/DSC_0370.JPG' // Path to your image
     },
     { 
-      title: 'You May Save The Life of A Child', 
+      title: 'Your Donation Can Make A Difference', 
       date: 'July 26, 2018',
       image: 'src/Images/DSC_0375.JPG' // Path to your image
     },
     { 
-      title: 'Children That Needs Care', 
+      title: 'Help Children In Need: Donate Now', 
       date: 'July 26, 2018',
       image: 'src/Images/DSC_0401.JPG' // Path to your image
     },
     { 
-      title: 'Be A Volunteer Today', 
+      title: 'Be The Change: Volunteer To Make A Difference', 
       date: 'July 26, 2018',
       image: 'src/Images/DSC_0397.JPG' // Path to your image
     },
     { 
-      title: 'You May Save The Life of A Child', 
+      title: 'Give Hope To A Child: Donate Today', 
       date: 'July 26, 2018',
       image: 'src/Images/DSC_0411.JPG' // Path to your image
     },
     { 
-      title: 'Children That Needs Care', 
+      title: 'Every Donation Counts: Help Us Save Lives', 
       date: 'July 26, 2018',
       image: 'src/Images/DSC_0408.JPG' // Path to your image
     },
   ];
-
+  
   return (
     <div className="flex flex-col">
       <Navbar />
-      
+      <Loader />
       <div className="relative h-[100vh] flex items-center justify-center text-white overflow-hidden">
       {/* Background Image */}
       <div
@@ -87,7 +88,7 @@ const Blog = () => {
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.7, duration: 0.6 }}
         >
-          <button className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 px-6 py-3 rounded-lg font-medium text-lg shadow-md focus:outline-none">
+          <button className="bg-yellow-600 hover:bg-yellow-700 transition-all duration-300 px-6 py-3 rounded-full text-black font-medium text-lg shadow-md focus:outline-none">
             Explore More
           </button>
         </motion.div>

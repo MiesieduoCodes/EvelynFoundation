@@ -5,6 +5,7 @@ import { ImZoomIn } from "react-icons/im";
 import { motion } from "framer-motion";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Loader from './Loader';
 import { GrLinkPrevious, GrLinkNext } from "react-icons/gr";
 
 // Import your images directly
@@ -73,7 +74,7 @@ const Gallery = () => {
   return (
     <div className="flex flex-col bg-gray-900 text-white">
       <Navbar />
-      
+      <Loader />
       {/* Hero Section */}
    <div className="relative h-[100vh] justify-center items-center text-center flex bg-cover bg-center text-white" style={{ backgroundImage: `url(${img12})` }}>
    <div className="absolute inset-0 bg-gradient-to-b from-black via-black/30 to-black/50"></div>
