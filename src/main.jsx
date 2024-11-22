@@ -8,6 +8,7 @@ import About from "./Components/About";
 import Gallery from "./Components/Gallery";
 import Contact from "./Components/Contact";
 import Blog from "./Components/Blog";
+import Donate from "./Components/Donate";
 import BlogSingle from "./Components/BlogSingle";
  // Import your main site component
 // Create the router configuration
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/about",
     element: <About />, // Main component
+  },
+  {
+    path: "/donate",
+    element: <Donate />, // Main component
   },
 ]);
 
