@@ -2,8 +2,8 @@ import HeadImage from "../Images/DSC_0438-Normal.jpg";
 
 const LatestDonations = () => {
   return (
-    <div className="p-10">
-      <div className="justify-center flex text-4xl p-7 font-bold text-center">
+    <div className="p-10 bg-slate-950 ">
+      <div className="justify-center flex text-4xl text-white p-7 font-bold text-center">
         <h1>Latest Donations</h1>
       </div>
 

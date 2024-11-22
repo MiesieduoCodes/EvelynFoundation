@@ -18,15 +18,15 @@ const LatestNews = () => {
     },
   ];
   return (
-    <div>
-        <div className="justify-left flex text-4xl p-7 font-bold text-left"><h1>Latest News</h1></div>
+    <div className="bg-slate-950">
+        <div className="justify-left flex text-4xl text-white p-7 font-bold text-left"><h1>Latest News</h1></div>
 
         <div className="flex flex-col p-7 gap-20">
       <div className="grid gap-6 md:grid-cols-3">
         {posts.map((post, index) => (
-          <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden">
+          <div key={index} className=" shadow-lg rounded-lg text-white overflow-hidden">
             <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
-            <div className="p-5">
+            <div className="p-5 bg-white  text-black">
               <h2 className="text-2xl font-semibold">{post.title}</h2>
               <b><p className="text-gray-500">{post.date}</p></b>
               <p className="mt-2 text-gray-700">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>

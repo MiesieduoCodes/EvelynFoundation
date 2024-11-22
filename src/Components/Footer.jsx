@@ -8,7 +8,7 @@ import { IoIosTimer } from "react-icons/io";
 
 const Footer = () => {
   return (
-    <div className="bg-gray-800  text-white p-6">
+    <div className="bg-gray-800 text-white p-6">
       <div className="flex flex-col md:flex-row justify-around items-start">
         {/* About Us Section */}
         <section className="mb-6 md:mb-0">

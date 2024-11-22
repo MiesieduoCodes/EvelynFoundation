@@ -47,7 +47,7 @@ const Fundraisers2 = () => {
             </motion.p>
             
             <button className="mt-4 bg-blue-600 text-white w-fit px-4 py-2 rounded">
-              R E A D  T H E  F U L L  S T O R Y
+              Read The Full Story
             </button>
           </div>          
         </div>

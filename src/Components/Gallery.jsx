@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { ImZoomIn } from "react-icons/im";
@@ -53,74 +53,88 @@ const Gallery = () => {
     );
   };
 
+  useEffect(() => {
+    // Importing and initializing AOS library for scroll reveal
+    import('aos').then((AOS) => {
+      AOS.init({ duration: 1000, once: true });
+    });
+  }, []);
+
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-gray-900 text-white">
       <Navbar />
       
-      <div className="flex items-center justify-center h-[100vh] p-8 text-white"
-        style={{ backgroundImage: "url('src/Images/DSC_0390.JPG')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      {/* Hero Section */}
+      <div className="relative h-[100vh] bg-cover bg-center text-white" style={{ backgroundImage: `url(${img12})` }}>
         <div className="absolute inset-0 bg-black opacity-50"></div>
 
-        <div className="max-w-md ">
-
-          <motion.h1 className="text-5xl md:text-6xl font-bold mb-4"
+        <div className="flex flex-col justify-center items-center max-w-xl px-4 z-10 text-center space-y-4" data-aos="fade-up">
+          <motion.h1 
+            className="text-5xl md:text-6xl font-extrabold leading-tight"
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}>
-
-            Pictures That Worth A Thousand Words
-
+            transition={{ duration: 0.8 }}
+          >
+            Pictures That Are Worth A Thousand Words
           </motion.h1>
+          <motion.p 
+            className="text-lg md:text-xl font-light"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            A gallery that speaks volumes, one image at a time.
+          </motion.p>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-5">
+      {/* Gallery Section */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5 bg-gray-800">
         {images.map((image, index) => (
-          <div
+          <motion.div
             key={index}
-            className="relative cursor-pointer transition-transform duration-300"
+            className="relative group cursor-pointer rounded-lg overflow-hidden shadow-lg transition-transform duration-300"
             onClick={() => handleImageClick(index)}
+            whileHover={{ scale: 1.05 }}
+            data-aos="fade-up"
           >
             <img
               src={image}
               alt={`Image ${index + 1}`}
-              className="object-cover w-full h-full transition-opacity duration-300"
+              className="object-cover w-full h-full rounded-lg transition-opacity duration-300 group-hover:opacity-80"
             />
-            <div className="absolute inset-0 bg-green-600 opacity-0 flex items-center justify-center text-white transition-opacity duration-300 hover:opacity-75">
-              <span className="text-lg"><ImZoomIn /></span>
+            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <ImZoomIn className="text-3xl text-white" />
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
+      {/* Image Overlay */}
       {selectedImageIndex !== null && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50 transition-opacity duration-300">
           <div className="relative">
             <img
               src={images[selectedImageIndex]}
               alt="Expanded View"
-              className="max-w-full max-h-full object-contain cursor-pointer transition-transform duration-300"
+              className="max-w-full max-h-full object-contain cursor-pointer"
               onClick={closeOverlay}
             />
             <button
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full transition-all"
               onClick={prevImage}
             >
-              <GrLinkPrevious />
+              <GrLinkPrevious className="text-xl" />
             </button>
             <button
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full transition-all"
               onClick={nextImage}
             >
-              <GrLinkNext />
+              <GrLinkNext className="text-xl" />
             </button>
           </div>
         </div>
       )}
-
-      <div className="flex flex-col md:flex-row justify-between p-5 md:p-10 overflow-hidden space-y-6 md:space-y-0 md:space-x-6">
-        {/* Additional Content */}
-      </div>
 
       <Footer />
     </div>

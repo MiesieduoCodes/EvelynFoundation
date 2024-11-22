@@ -21,7 +21,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`p-6 fixed w-full z-10 shadow-md transition-all duration-300 ${scrolled ? 'bg-white text-black' : 'bg-transparent text-white'}`}>
+    <nav className={`p-6 fixed w-full z-10 shadow-md transition-all duration-300 ${scrolled ? 'bg-slate-950 text-white' : 'bg-transparent text-white'}`}>
       <div className="flex justify-between items-center">
         <div className="text-3xl font-bold">Don8</div>
         <div className="md:hidden">
