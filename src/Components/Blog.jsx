@@ -40,7 +40,7 @@ const Blog = () => {
     <div className="flex flex-col">
       <Navbar />
       
-    <div className="relative h-[100vh] flex items-center justify-center text-white overflow-hidden">
+      <div className="relative h-[100vh] flex items-center justify-center text-white overflow-hidden">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -94,25 +94,37 @@ const Blog = () => {
       </motion.div>
     </div>
       
-      <div className="flex bg-slate-950 flex-col p-10 gap-20">
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="bg-slate-950 py-10 px-5 md:px-10">
+      <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-4">
         {posts.map((post, index) => (
-          <div key={index} className=" shadow-lg rounded-lg bg-white overflow-hidden">
-            <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
+          <div
+            key={index}
+            className="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl group"
+          >
+            <img
+              src={post.image}
+              alt={post.title}
+              className="w-full h-48 object-cover group-hover:opacity-80 transition-opacity duration-300"
+            />
             <div className="p-5">
-              <h2 className="text-2xl font-semibold">{post.title}</h2>
-              <b><p className="text-gray-500">{post.date}</p></b>
-              <p className="mt-2 text-gray-700">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-    <Link to="/more" className="text-blue-500 hover:underline mt-4 inline-block">
-      Read More
-    </Link>
-
+              <h2 className="text-2xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
+                {post.title}
+              </h2>
+              <p className="text-gray-500 mb-4">{post.date}</p>
+              <p className="text-gray-700 text-base mb-4">
+                Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.
+              </p>
+              <Link
+                to="/more"
+                className="text-blue-500 hover:underline transition-all duration-300 group-hover:text-blue-700"
+              >
+                Read More
+              </Link>
             </div>
           </div>
         ))}
-      </div> 
-
       </div>
+    </div>
 
       <Footer />
     </div>
