@@ -4,14 +4,13 @@ import { createBrowserRouter,RouterProvider,} from "react-router-dom";
 import "./index.css";
 import Home from "./App";
 import About from "./Components/About";
-// import Donate from "C:/Users/Miesieduo Veria/Downloads/Sites/Orphanage-Disabled Home/EvelynOweibo/public/index.html"
 import Gallery from "./Components/Gallery";
 import Contact from "./Components/Contact";
 import Blog from "./Components/Blog";
 import Donate from "./Components/Donate";
 import BlogSingle from "./Components/BlogSingle";
- // Import your main site component
-// Create the router configuration
+
+
 const router = createBrowserRouter([
   {
     path: "/home",
@@ -33,10 +32,6 @@ const router = createBrowserRouter([
     path: "/more",
     element: <BlogSingle />, // Main component
   },
-  // {
-  //   path: "/donate",
-  //   element: <Donate />, // Main component
-  // },
   {
     path: "/about",
     element: <About />, // Main component
