@@ -1,51 +1,51 @@
-import React from 'react'
+
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import Loader from "./Loader";
 
 function About() {
-    require(
-        <>
-        <div className='w-screen min-h-screen relative'>
+  return (
+    <div className="w-screen min-h-screen flex flex-col">
+      {/* Loader */}
+      <Loader />
 
-        {/* THIS IS THE NAVBAR */}
-          <div className='w-full relative bg-gray-900 text-white h-16 px-10  flex items-center justify-between'>
-            <p className=''>Giving</p>
-            <div className='flex items-center gap-10 list-none'>
-              {[1,2,3,4,5].map((i) => {
-                return(
-                  <li className='w-10 h-auto hover:border-b-2 hover:border-blue-400 border-black text-center py-1'>this</li>
-              
-                )
-              })}
-            </div>
+      {/* Navbar */}
+      <Navbar />
 
-          </div>
+      {/* Hero Section */}
+      <div className="w-full flex flex-col items-center justify-center text-4xl text-gray-100 h-screen bg-gray-900">
+        <p className="mb-4">About the</p>
+        <p className="font-bold">Organization</p>
+      </div>
 
-        <div className='w-full flex items-center flex-col justify-center text-[3rem] text-gray-100  h-screen bg-gray-900 absolute'>
-               <p>about the</p>
-               <p>organisaton</p>
-        </div>
-
-       {/*  TOP FOUNDERS */}
-       
-        </div>
-        <div className='w-full bg-gray-300 justify-between relative min-h-64 flex gap-5'>
-        {[1,2,3,4].map((e) => {
-          return(
-
-        <div className='w-64 flex flex-col gap-3 items-center justify-center p-5 min-h-64 '>
-              <div className='bg-blue-600 w-24 h-24 rounded-full'></div>
-              <p>Michael Isreal</p>
-              <p className='text-xl text-gray-600'>CEO</p>
-              <p className='text-center'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium tempo
-                re eos quibusdam similique tempora repellendus quae enim optio fugit doloremque con
-
+      {/* Top Founders Section */}
+      <div className="w-full bg-gray-300 py-16">
+        <h2 className="text-3xl font-semibold text-gray-800 text-center mb-8">
+          Meet Our Founders
+        </h2>
+        <div className="flex flex-wrap justify-center gap-10 px-6">
+          {[1, 2, 3, 4].map((e, index) => (
+            <div
+              key={index}
+              className="bg-white shadow-md w-72 flex flex-col items-center gap-4 p-6 rounded-lg"
+            >
+              <div className="bg-blue-600 w-24 h-24 rounded-full"></div>
+              <p className="font-bold text-lg">Michael Israel</p>
+              <p className="text-blue-500 text-sm">CEO</p>
+              <p className="text-gray-600 text-center text-sm">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Praesentium tempore eos quibusdam similique tempora repellendus
+                quae enim optio fugit doloremque.
               </p>
+            </div>
+          ))}
+        </div>
+      </div>
 
-        </div>
-          )
-        })}
-        </div>
-    </>
-    )
+      {/* Footer */}
+      <Footer />
+    </div>
+  );
 }
 
-export default About
+export default About;
