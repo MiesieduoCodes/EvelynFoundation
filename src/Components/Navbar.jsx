@@ -61,7 +61,7 @@ const Navbar = () => {
         animate={{ height: isOpen ? 'auto' : 0 }}
         exit={{ height: 0 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className={`overflow-hidden z-[-100] bg-white text-black flex flex-col md:hidden`}
+        className={`overflow-hidden z-[100] bg-white text-black flex flex-col md:hidden`}
       >
         <div className="flex flex-col space-y-4 p-6">
           {["Home", "Donate", "Gallery", "Blog", "About", "Contact"].map((link, index) => (
