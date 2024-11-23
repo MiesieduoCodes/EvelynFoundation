@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Loader from "./Loader";
+import Reviews from "./Testamen";
 
 function About() {
   const cardVariants = {
@@ -58,6 +59,7 @@ function About() {
         </motion.div>
       </div>
 
+      <Reviews />
       {/* Footer */}
       <Footer />
     </div>
