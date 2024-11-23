@@ -1,11 +1,17 @@
-
+import React from "react";
+import { motion } from "framer-motion";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Loader from "./Loader";
 
 function About() {
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.8, y: 50 },
+    visible: { opacity: 1, scale: 1, y: 0 },
+  };
+
   return (
-    <div className="w-screen min-h-screen flex flex-col">
+    <div className="w-screen min-h-screen flex flex-col overflow-x-hidden">
       {/* Loader */}
       <Loader />
 
@@ -23,11 +29,21 @@ function About() {
         <h2 className="text-3xl font-semibold text-gray-800 text-center mb-8">
           Meet Our Founders
         </h2>
-        <div className="flex flex-wrap justify-center gap-10 px-6">
+        <motion.div
+          className="flex flex-wrap justify-center gap-10 px-6"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+          }}
+        >
           {[1, 2, 3, 4].map((e, index) => (
-            <div
+            <motion.div
               key={index}
               className="bg-white shadow-md w-72 flex flex-col items-center gap-4 p-6 rounded-lg"
+              variants={cardVariants}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <div className="bg-blue-600 w-24 h-24 rounded-full"></div>
               <p className="font-bold text-lg">Michael Israel</p>
@@ -37,9 +53,9 @@ function About() {
                 Praesentium tempore eos quibusdam similique tempora repellendus
                 quae enim optio fugit doloremque.
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       {/* Footer */}
