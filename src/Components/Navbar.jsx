@@ -46,8 +46,15 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className={`hidden md:flex space-x-6`}>
-          {["Home", "Donate", "Gallery", "Blog", "About", "Contact"].map((link, index) => (
-            <Link 
+        <Link
+              to="/"
+              className="relative group text-lg font-medium transition-all duration-300 hover:text-yellow-400"
+            >
+              <span className="hover:underline">Home</span>
+              <span className="absolute left-0 bottom-[-5px] w-0 h-1 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+          {["Donate", "Gallery", "Blog", "About", "Contact"].map((link, index) => (
+            <Link  
               key={index} 
               to={`/${link.toLowerCase()}`} 
               className="relative group text-lg font-medium transition-all duration-300 hover:text-yellow-400"
