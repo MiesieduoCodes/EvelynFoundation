@@ -10,11 +10,11 @@ const Loader = ({ onLoaded }) => {
     const timer = setTimeout(() => {
       setIsAnimating(false);
       if (onLoaded) onLoaded(); 
-    }, 5000); // Loader duration
+    }, 2000); // Loader duration
 
     const progressInterval = setInterval(() => {
       setLoadingProgress((prev) => {
-        if (prev < 100) return prev + 2; // Progress increment
+        if (prev < 100) return prev + 4; // Progress increment
         clearInterval(progressInterval);
         return prev;
       });
@@ -69,8 +69,9 @@ const Loader = ({ onLoaded }) => {
       </motion.div>
 
       {/* Loading Text */}
-      <div className="mt-8 text-center text-gray-300">
+      <div className="mt-8 text-center flex flex-col text-gray-300">
         <p className="text-lg">We&apos;re preparing something special for you!</p>
+        <p className="text-lg">Setting Up Donations....</p>
       </div>
     </motion.div>
   );
