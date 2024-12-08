@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
+import { TypeAnimation } from 'react-type-animation';
 
 const Loader = ({ onLoaded }) => {
   const [isAnimating, setIsAnimating] = useState(true);
@@ -71,7 +72,13 @@ const Loader = ({ onLoaded }) => {
       {/* Loading Text */}
       <div className="mt-8 text-center flex flex-col text-gray-300">
         <p className="text-lg">We&apos;re preparing something special for you!</p>
-        <p className="text-lg">Setting Up Donations....</p>
+        <p className="text-lg">Setting Up Donations  <TypeAnimation 
+          sequence={["......", 9000]} 
+          wrapper="span" 
+          speed={20} 
+          repeat={Infinity} 
+        />
+         </p>
       </div>
     </motion.div>
   );

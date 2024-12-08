@@ -2,10 +2,36 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { motion } from "framer-motion";
 import Loader from './Loader';
-import { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { useState, useRef } from "react";
 
 const Contact = () => {
+  const formRef = useRef();
   const [focusedField, setFocusedField] = useState("");
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "your_service_id", // Replace with your EmailJS Service ID
+        "your_template_id", // Replace with your EmailJS Template ID
+        formRef.current,
+        "your_public_key"   // Replace with your EmailJS Public Key
+      )
+      .then(
+        (result) => {
+          console.log("Email sent successfully:", result.text);
+          alert("Your message has been sent successfully!");
+        },
+        (error) => {
+          console.error("Error sending email:", error.text);
+          alert("Failed to send your message. Please try again.");
+        }
+      );
+  };
+
+
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -71,45 +97,73 @@ const Contact = () => {
           <p className="text-gray-600 text-center mb-8">
             We’d love to hear from you. Fill out the form below and we’ll get back to you as soon as possible.
           </p>
-          <form className="space-y-6">
-            <input
-              type="text"
-              placeholder="Your Name"
-              className={`w-full h-14 p-4 border rounded-md ${
-                focusedField === "name" ? "border-blue-500" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-blue-300`}
-              onFocus={() => setFocusedField("name")}
-            />
-            <input
-              type="email"
-              placeholder="Your Email"
-              className={`w-full h-14 p-4 border rounded-md ${
-                focusedField === "email" ? "border-blue-500" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-blue-300`}
-              onFocus={() => setFocusedField("email")}
-            />
-            <input
-              type="text"
-              placeholder="Subject"
-              className={`w-full h-14 p-4 border rounded-md ${
-                focusedField === "subject" ? "border-blue-500" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-blue-300`}
-              onFocus={() => setFocusedField("subject")}
-            />
-            <textarea
-              placeholder="Your Message"
-              className={`w-full h-36 p-4 border rounded-md resize-none ${
-                focusedField === "message" ? "border-blue-500" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-blue-300`}
-              onFocus={() => setFocusedField("message")}
-            ></textarea>
-            <button
-              type="submit"
-              className="w-full h-14 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600 transition-all"
-            >
-              Send Message
-            </button>
-          </form>
+          <form
+      ref={formRef}
+      onSubmit={sendEmail}
+      className="space-y-6"
+    >
+      <label className="block">
+        <span className="text-sm font-medium text-gray-700">Your Name</span>
+        <input
+          type="text"
+          name="user_name"
+          placeholder="Your Name"
+          className={`w-full h-14 p-4 border rounded-md mt-1 ${
+            focusedField === "name" ? "border-blue-500" : "border-gray-300"
+          } focus:outline-none focus:ring-2 focus:ring-blue-300`}
+          onFocus={() => setFocusedField("name")}
+          onBlur={() => setFocusedField("")}
+          aria-label="Your Name"
+        />
+      </label>
+      <label className="block">
+        <span className="text-sm font-medium text-gray-700">Your Email</span>
+        <input
+          type="email"
+          name="user_email"
+          placeholder="Your Email"
+          className={`w-full h-14 p-4 border rounded-md mt-1 ${
+            focusedField === "email" ? "border-blue-500" : "border-gray-300"
+          } focus:outline-none focus:ring-2 focus:ring-blue-300`}
+          onFocus={() => setFocusedField("email")}
+          onBlur={() => setFocusedField("")}
+          aria-label="Your Email"
+        />
+      </label>
+      <label className="block">
+        <span className="text-sm font-medium text-gray-700">Subject</span>
+        <input
+          type="text"
+          name="subject"
+          placeholder="Subject"
+          className={`w-full h-14 p-4 border rounded-md mt-1 ${
+            focusedField === "subject" ? "border-blue-500" : "border-gray-300"
+          } focus:outline-none focus:ring-2 focus:ring-blue-300`}
+          onFocus={() => setFocusedField("subject")}
+          onBlur={() => setFocusedField("")}
+          aria-label="Subject"
+        />
+      </label>
+      <label className="block">
+        <span className="text-sm font-medium text-gray-700">Your Message</span>
+        <textarea
+          name="message"
+          placeholder="Your Message"
+          className={`w-full h-36 p-4 border rounded-md mt-1 resize-none ${
+            focusedField === "message" ? "border-blue-500" : "border-gray-300"
+          } focus:outline-none focus:ring-2 focus:ring-blue-300`}
+          onFocus={() => setFocusedField("message")}
+          onBlur={() => setFocusedField("")}
+          aria-label="Your Message"
+        ></textarea>
+      </label>
+      <button
+        type="submit"
+        className="w-full h-14 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600 transition-all focus:ring-2 focus:ring-blue-300 focus:outline-none"
+      >
+        Send Message
+      </button>
+    </form>
         </div>
       </div>
       <Footer />
