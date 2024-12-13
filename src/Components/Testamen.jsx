@@ -17,22 +17,22 @@ export const Testamen = () => {
                   <div className='p-8 rounded-sm flex w-[90%] flex-col gap-4 h-full shadow-black/20 shadow-lg'>
                     {e === 1 && (
                       <span className="h-[95%] w-full">
-                        "The Evelyn Oweibo Foundation has been a beacon of hope for many families. Their health initiatives and outreach programs have saved lives and given us a brighter future."
+                        &quot;The Evelyn Oweibo Foundation has been a beacon of hope for many families. Their health initiatives and outreach programs have saved lives and given us a brighter future.&quot;
                       </span>
                     )}
                     {e === 2 && (
                       <span className="h-[95%] w-full">
-                        "As a teacher, I&apos;ve seen firsthand how the foundation&apos;s educational support has helped countless students excel. The Evelyn Oweibo Foundation is truly changing lives one child at a time."
+                        &quot;As a teacher, I&apos;ve seen firsthand how the foundation&apos;s educational support has helped countless students excel. The Evelyn Oweibo Foundation is truly changing lives one child at a time.&quot;
                       </span>
                     )}
                     {e === 3 && (
                       <span className="h-[95%] w-full">
-                        "I&apos;ve been fortunate to witness the foundation&apos;s work in rural areas. Their commitment to providing clean water and sanitation is helping entire communities thrive."
+                        &quot;I&apos;ve been fortunate to witness the foundation&apos;s work in rural areas. Their commitment to providing clean water and sanitation is helping entire communities thrive.&quot;
                       </span>
                     )}
                     {e === 4 && (
                       <span className="h-[95%] w-full">
-                        "The foundations empowerment programs for women have inspired so many in our community. I&apos;ve personally benefited from their vocational training, and I&apos;m now running my own business."
+                        &quot;The foundations empowerment programs for women have inspired so many in our community. I&apos;ve personally benefited from their vocational training, and I&apos;m now running my own business.&quot;
                       </span>
                     )}
                     <span className='relative w-full'>
