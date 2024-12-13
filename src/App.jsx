@@ -1,6 +1,5 @@
-// src/App.js
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Route, Routes } from 'react-router-dom';
 import Loader from './Components/Loader';
 import Navbar from './Components/Navbar'; // Import your Navbar component
 import Hero from './Components/Hero';
@@ -25,29 +24,27 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
-      <div className="flex flex-col">
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            <Navbar />
-            <Routes>
-              {/* Define your routes here */}
-              <Route path="/" element={<Hero />} />
-              <Route path="/fundraisers" element={<Fundraisers />} />
-              <Route path="/mini-section" element={<MiniSection />} />
-              <Route path="/fundraisers2" element={<Fundraisers2 />} />
-              <Route path="/news" element={<News />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/post/:id" element={<PostDetails />} /> {/* Dynamic route for individual posts */}
-              {/* Add more routes as needed */}
-            </Routes>
-            <Footer />
-          </>
-        )}
-      </div>
-    </Router>
+    <div className="flex flex-col">
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <Navbar />
+          <Routes>
+            {/* Define your routes here */}
+            <Route path="/" element={<Hero />} />
+            <Route path="/fundraisers" element={<Fundraisers />} />
+            <Route path="/mini-section" element={<MiniSection />} />
+            <Route path="/fundraisers2" element={<Fundraisers2 />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/post/:id" element={<PostDetails />} /> {/* Dynamic route for individual posts */}
+            {/* Add more routes as needed */}
+          </Routes>
+          <Footer />
+        </>
+      )}
+    </div>
   );
 };
 
