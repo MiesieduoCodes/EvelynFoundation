@@ -1,51 +1,29 @@
-import { FaCalendarDays } from "react-icons/fa6";
-import { IoMdPerson } from "react-icons/io";
-import { TbMessage2 } from "react-icons/tb";
 import { CiLocationOn } from "react-icons/ci";
 import { PiPhoneCall } from "react-icons/pi";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import { IoIosTimer } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="bg-gray-900 text-white p-8 shadow-lg">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+    <div className="bg-gray-900 flex flex-col justify-around text-white p-8 shadow-lg">
+      <div className="max-w-7xl flex mx-auto  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
         {/* About Us Section */}
         <section className="space-y-4">
           <h1 className="text-xl font-semibold text-blue-400 hover:text-blue-500 transition duration-300">
             ABOUT US
           </h1>
           <p className="text-white text-base md:text-lg mb-4">
-            Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
+            Far far away, behind the word mountains, far from the <br /> countries Vokalia and Consonantia, there live the blind texts.
           </p>
           <button className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 ease-in-out">
+            <Link to ="/contact">
             Join Volunteers
+            </Link>
           </button>
         </section>
 
-        {/* Blog Section */}
-        <section className="space-y-4">
-          <h1 className="text-xl font-semibold text-blue-400 hover:text-blue-500 transition duration-300">
-            BLOG
-          </h1>
-          <div className="space-y-4">
-            {Array(3).fill().map((_, index) => (
-              <div key={index} className="space-y-2">
-                <h2 className="font-semibold text-white transition duration-300 hover:text-blue-400">
-                  Feed A Child Daily
-                </h2>
-                <div className="flex items-center gap-3 text-sm text-gray-400">
-                  <FaCalendarDays />
-                  <p>July 8, 2018</p>
-                  <IoMdPerson />
-                  <p>Admin</p>
-                  <TbMessage2 />
-                  <p>19</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+
 
         {/* Contact Section */}
         <section className="space-y-4">
@@ -55,15 +33,15 @@ const Footer = () => {
           <div className="space-y-3">
             <div className="flex items-center gap-4">
               <CiLocationOn className="text-green-400 text-3xl transition transform hover:scale-110" />
-              <p>203 Fake St. Mountain View, San Francisco, California, USA</p>
+              <p>Bayelsa Medical University, P.M.B. 178, Imgbi Rd, Onopa, Yenagoa, Bayelsa State</p>
             </div>
             <div className="flex items-center gap-4">
               <PiPhoneCall className="text-green-400 text-3xl transition transform hover:scale-110" />
-              <p>+2 392 3929 210</p>
+              <p>+1(404)910-8449, 08039293173</p>
             </div>
             <div className="flex items-center gap-4">
               <MdOutlineMarkEmailUnread className="text-green-400 text-3xl transition transform hover:scale-110" />
-              <p>info@yourdomain.com</p>
+              <p> <Link to ="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=evelynoweibofoundation@gmail.com">evelynoweibofoundation@gmail.com</Link></p>
             </div>
             <div className="flex items-center gap-4">
               <IoIosTimer className="text-green-400 text-3xl transition transform hover:scale-110" />

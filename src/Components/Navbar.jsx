@@ -30,7 +30,7 @@ const Navbar = () => {
         
         {/* Brand */}
         <div className="text-3xl font-bold text-yellow-400 hover:text-white transition-all duration-300">
-          Don8
+          Evelyn<br />Oweibo
         </div>
 
         {/* Menu Button for Mobile */}
@@ -53,7 +53,7 @@ const Navbar = () => {
               <span className="hover:underline">Home</span>
               <span className="absolute left-0 bottom-[-5px] w-0 h-1 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
             </Link>
-          {["Donate", "Gallery", "Blog", "About", "Contact"].map((link, index) => (
+          {["Gallery", "Blog", "About", "Contact"].map((link, index)=> (
             <Link  
               key={index} 
               to={`/${link.toLowerCase()}`} 
@@ -88,7 +88,7 @@ const Navbar = () => {
 
             {/* Menu Links */}
             <div className="flex flex-col space-y-4 p-6">
-              {["Home", "Donate", "Gallery", "Blog", "About", "Contact"].map((link, index) => (
+              {["Home", "Gallery", "Blog", "About", "Contact"].map((link, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: -50 }}
