@@ -1,46 +1,35 @@
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import { motion } from "framer-motion";
-import Loader from './Loader';
 import { Link } from 'react-router-dom';
+import Navbar from './Navbar';
+import Footer from './Footer';
+import { motion } from "framer-motion";
 const Blog = () => {
+  // Sample posts (this could eventually be fetched from an API)
   const posts = [
     { 
+      id: 1,
       title: 'Donate Today, Save A Child’s Life', 
       date: 'July 26, 2018',
-      image: 'src/Images/DSC_0370.JPG' // Path to your image
+      image: 'src/Images/DSC_0370.JPG' 
     },
     { 
+      id: 2,
       title: 'Your Donation Can Make A Difference', 
       date: 'July 26, 2018',
-      image: 'src/Images/DSC_0375.JPG' // Path to your image
+      image: 'src/Images/DSC_0375.JPG' 
     },
     { 
+      id: 3,
       title: 'Help Children In Need: Donate Now', 
       date: 'July 26, 2018',
-      image: 'src/Images/DSC_0401.JPG' // Path to your image
+      image: 'src/Images/DSC_0401.JPG' 
     },
-    { 
-      title: 'Be The Change: Volunteer To Make A Difference', 
-      date: 'July 26, 2018',
-      image: 'src/Images/DSC_0397.JPG' // Path to your image
-    },
-    { 
-      title: 'Give Hope To A Child: Donate Today', 
-      date: 'July 26, 2018',
-      image: 'src/Images/DSC_0411.JPG' // Path to your image
-    },
-    { 
-      title: 'Every Donation Counts: Help Us Save Lives', 
-      date: 'July 26, 2018',
-      image: 'src/Images/DSC_0408.JPG' // Path to your image
-    },
+    // More posts can be added here
   ];
-  
+
   return (
-    <div className="flex flex-col">
+    <div>
       <Navbar />
-      <Loader />
+      <div className="w-screen min-h-screen flex flex-col overflow-x-hidden">
       <div className="relative h-[100vh] flex items-center justify-center text-white overflow-hidden">
       {/* Background Image */}
       <div
@@ -94,39 +83,19 @@ const Blog = () => {
         </motion.div>
       </motion.div>
     </div>
-      
-      <div className="bg-slate-950 py-10 px-5 md:px-10">
-      <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-4">
-        {posts.map((post, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl group"
-          >
-            <img
-              src={post.image}
-              alt={post.title}
-              className="w-full h-48 object-cover group-hover:opacity-80 transition-opacity duration-300"
-            />
-            <div className="p-5">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
-                {post.title}
-              </h2>
-              <p className="text-gray-500 mb-4">{post.date}</p>
-              <p className="text-gray-700 text-base mb-4">
-                Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.
-              </p>
-              <Link
-                to="/more"
-                className="text-blue-500 hover:underline transition-all duration-300 group-hover:text-blue-700"
-              >
-                Read More
-              </Link>
+        <div className="grid p-10 gap-6 md:grid-cols-3 lg:grid-cols-4">
+          {posts.map((post) => (
+            <div key={post.id} className="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
+              <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
+              <div className="p-5">
+                <h2 className="text-2xl font-semibold text-gray-900 mb-2">{post.title}</h2>
+                <p className="text-gray-500 mb-4">{post.date}</p>
+                <Link to={`/post/${post.id}`} className="text-blue-500 hover:underline">Read More</Link>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-
       <Footer />
     </div>
   );
