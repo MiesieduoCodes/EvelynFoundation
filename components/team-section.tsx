@@ -17,19 +17,7 @@ const teamMembers = [
     name: "Solomon Diepreye",
     role: "Medical Director",
     bio: "A public administration professional with degrees in Political Science and Peace Studies. Former Human Resources Manager at Bayelsa State Tourism, now Senior Assistant Registrar at Bayelsa Medical University. Trustee and Secretary of the Foundation.",
-    image: "/placeholder.svg?height=400&width=400",
-  },
-  {
-    name: "Sarah Johnson",
-    role: "Program Director",
-    bio: "Sarah develops and implements innovative programs that address the diverse needs of elderly individuals.",
-    image: "/placeholder.svg?height=400&width=400",
-  },
-  {
-    name: "Michael Thompson",
-    role: "Community Outreach",
-    bio: "Michael builds partnerships with local organizations to expand our reach and impact in the community.",
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/Mr_Solomon.jpeg",
   },
 ]
 
@@ -64,47 +52,55 @@ export function TeamSection() {
           </p>
         </motion.div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {teamMembers.map((member, index) => (
-            <motion.div
-              key={member.name}
-              variants={{
-                hidden: { opacity: 0, y: 50 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              initial="hidden"
-              animate={controls}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <Card className="overflow-hidden">
-                <div className="relative h-80">
-                  <Image src={member.image || "/placeholder.svg"} alt={member.name} fill className="object-cover" />
-                </div>
-                <CardContent className="pt-6">
-                  <h3 className="font-bold text-xl">{member.name}</h3>
-                  <p className="text-primary font-medium">{member.role}</p>
-                  <p className="mt-2 text-muted-foreground">{member.bio}</p>
-                </CardContent>
-                <CardFooter className="flex gap-4 pt-0">
-                  <a href="#" className="text-muted-foreground hover:text-foreground">
-                    <Facebook className="h-5 w-5" />
-                    <span className="sr-only">Facebook</span>
-                  </a>
-                  <a href="#" className="text-muted-foreground hover:text-foreground">
-                    <Twitter className="h-5 w-5" />
-                    <span className="sr-only">Twitter</span>
-                  </a>
-                  <a href="#" className="text-muted-foreground hover:text-foreground">
-                    <Linkedin className="h-5 w-5" />
-                    <span className="sr-only">LinkedIn</span>
-                  </a>
-                </CardFooter>
-              </Card>
-            </motion.div>
-          ))}
+        <div className="flex justify-center">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto">
+            {teamMembers.map((member, index) => (
+              <motion.div
+                key={member.name}
+                variants={{
+                  hidden: { opacity: 0, y: 50 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                initial="hidden"
+                animate={controls}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <Card className="overflow-hidden h-full">
+                  <div className="relative h-80">
+                    <Image 
+                      src={member.image || "/placeholder.svg"} 
+                      alt={member.name} 
+                      fill 
+                      className="object-cover" 
+                    />
+                  </div>
+                  <CardContent className="pt-6">
+                    <h3 className="font-bold text-xl">{member.name}</h3>
+                    <p className="text-primary font-medium">{member.role}</p>
+                    <p className="mt-2 text-muted-foreground line-clamp-4">
+                      {member.bio}
+                    </p>
+                  </CardContent>
+                  <CardFooter className="flex gap-4 pt-0">
+                    <a href="#" className="text-muted-foreground hover:text-foreground">
+                      <Facebook className="h-5 w-5" />
+                      <span className="sr-only">Facebook</span>
+                    </a>
+                    <a href="#" className="text-muted-foreground hover:text-foreground">
+                      <Twitter className="h-5 w-5" />
+                      <span className="sr-only">Twitter</span>
+                    </a>
+                    <a href="#" className="text-muted-foreground hover:text-foreground">
+                      <Linkedin className="h-5 w-5" />
+                      <span className="sr-only">LinkedIn</span>
+                    </a>
+                  </CardFooter>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
   )
 }
-

@@ -22,10 +22,10 @@ export function AboutContent() {
   ]
 
   const galleryImages = [
-    "/images/gallery/outreach-1.jpg",
-    "/images/gallery/outreach-2.jpg",
-    "/images/gallery/outreach-3.jpg",
-    "/images/gallery/outreach-4.jpg"
+    "/images/DSC_0390.jpg",
+    "/images/DSC_0404.jpg",
+    "/images/DSC_0432.jpg",
+    "/images/DSC_0446.jpg"
   ]
 
   return (
@@ -96,7 +96,7 @@ export function AboutContent() {
             className="relative h-[400px] rounded-xl overflow-hidden shadow-lg order-1 md:order-2"
           >
             <Image
-              src="/images/about/foundation-team.jpg"
+              src="/images/DSC_0378.jpg"
               alt="Foundation team helping community members"
               fill
               className="object-cover"

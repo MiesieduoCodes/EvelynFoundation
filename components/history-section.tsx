@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { motion, useInView, useAnimation } from "framer-motion"
+import { motion, useInView, useAnimation, useScroll, useTransform } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 
@@ -56,6 +56,15 @@ export function HistorySection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.1 })
   const controls = useAnimation()
+  
+  // Scroll animations
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  })
+  
+  const yValues = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
+  const opacityValues = useTransform(scrollYProgress, [0, 0.5], [1, 0.2])
 
   useEffect(() => {
     if (isInView) {
@@ -64,78 +73,126 @@ export function HistorySection() {
   }, [isInView, controls])
 
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-b from-muted to-white">
-      <div className="container">
+    <section 
+      ref={ref}
+      className="py-12 md:py-16 lg:py-20 bg-gradient-to-b from-muted to-white relative overflow-hidden"
+    >
+      {/* Background elements with parallax */}
+      <motion.div 
+        style={{ y: yValues, opacity: opacityValues }}
+        className="absolute inset-0 pointer-events-none"
+      >
+        <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-40 h-40 rounded-full bg-amber-500/10 blur-3xl" />
+      </motion.div>
+
+      <div className="container relative z-10">
+        {/* Animated header */}
         <motion.div
-          ref={ref}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: { opacity: 1 },
-          }}
-          initial="hidden"
+          initial={{ opacity: 0, y: 50 }}
           animate={controls}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.8, type: "spring" }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-amber-600">
+          <motion.h2 
+            className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-amber-600"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
             Our Story & Values
-          </h2>
-          <p className="mt-6 text-xl text-muted-foreground max-w-3xl mx-auto">
+          </motion.h2>
+          <motion.p 
+            className="mt-6 text-xl text-muted-foreground max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
             The journey of making a difference in lives and communities
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* History Timeline */}
         <div className="mb-24">
-          <h3 className="text-2xl font-bold mb-8 text-center text-primary">Our History</h3>
+          <motion.h3 
+            className="text-2xl font-bold mb-8 text-center text-primary"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+          >
+            Our History
+          </motion.h3>
+          
           <div className="relative">
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary to-amber-300 rounded-full" />
+            {/* Animated timeline line */}
+            <motion.div 
+              className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary to-amber-300 rounded-full"
+              initial={{ height: 0 }}
+              animate={{ height: "100%" }}
+              transition={{ duration: 1.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            />
             
             <div className="space-y-16">
               {milestones.map((milestone, index) => (
                 <motion.div
                   key={milestone.year}
-                  variants={{
-                    hidden: { opacity: 0, y: 50 },
-                    visible: { opacity: 1, y: 0 },
-                  }}
-                  initial="hidden"
-                  animate={controls}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? 100 : -100 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
                   transition={{ 
-                    duration: 0.6, 
+                    duration: 0.8, 
                     delay: index * 0.15,
                     type: "spring",
-                    damping: 10
+                    damping: 10,
+                    stiffness: 100
                   }}
                   className={`relative flex items-center ${index % 2 === 0 ? "justify-end" : "justify-start"} md:justify-center`}
                 >
-                  <div className={`absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full ${index % 2 === 0 ? 'bg-primary' : 'bg-amber-500'} z-10 border-4 border-white`} />
-                  <Card className={`w-full md:w-5/12 ${index % 2 === 0 ? "md:mr-auto md:pr-12" : "md:ml-auto md:pl-12"} shadow-lg hover:shadow-xl transition-shadow`}>
-                    <CardContent className="p-6">
-                      <div className={`font-bold text-xl mb-2 ${index % 2 === 0 ? 'text-primary' : 'text-amber-600'}`}>
-                        {milestone.year}
-                      </div>
-                      <h3 className="font-semibold text-lg mb-2">{milestone.title}</h3>
-                      <p className="text-muted-foreground">{milestone.description}</p>
-                    </CardContent>
-                  </Card>
+                  {/* Animated dot */}
+                  <motion.div 
+                    className={`absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full ${index % 2 === 0 ? 'bg-primary' : 'bg-amber-500'} z-10 border-4 border-white`}
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      delay: 0.8 + (index * 0.15),
+                      type: "spring",
+                      stiffness: 200
+                    }}
+                  />
+                  
+                  {/* Card with 3D tilt effect */}
+                  <motion.div
+                    whileHover={{ 
+                      y: -10,
+                      transition: { duration: 0.3 }
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Card className={`w-full md:w-5/12 ${index % 2 === 0 ? "md:mr-auto md:pr-12" : "md:ml-auto md:pl-12"} shadow-lg hover:shadow-xl transition-all duration-300`}>
+                      <CardContent className="p-6">
+                        <div className={`font-bold text-xl mb-2 ${index % 2 === 0 ? 'text-primary' : 'text-amber-600'}`}>
+                          {milestone.year}
+                        </div>
+                        <h3 className="font-semibold text-lg mb-2">{milestone.title}</h3>
+                        <p className="text-muted-foreground">{milestone.description}</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 </motion.div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Mission and Vision */}
+        {/* Mission and Vision - Fade in on scroll */}
         <div className="grid md:grid-cols-2 gap-8 mb-24">
           <motion.div
-            variants={{
-              hidden: { opacity: 0, x: -50 },
-              visible: { opacity: 1, x: 0 },
-            }}
-            initial="hidden"
-            animate={controls}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-white p-8 rounded-xl shadow-lg border border-muted"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="bg-white p-8 rounded-xl shadow-lg border border-muted hover:shadow-2xl transition-shadow"
           >
             <h3 className="text-2xl font-bold mb-4 text-primary">Our Vision</h3>
             <p className="text-lg text-muted-foreground">
@@ -144,14 +201,11 @@ export function HistorySection() {
           </motion.div>
 
           <motion.div
-            variants={{
-              hidden: { opacity: 0, x: 50 },
-              visible: { opacity: 1, x: 0 },
-            }}
-            initial="hidden"
-            animate={controls}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-white p-8 rounded-xl shadow-lg border border-muted"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="bg-white p-8 rounded-xl shadow-lg border border-muted hover:shadow-2xl transition-shadow"
           >
             <h3 className="text-2xl font-bold mb-4 text-primary">Our Mission</h3>
             <p className="text-lg text-muted-foreground">
@@ -160,23 +214,38 @@ export function HistorySection() {
           </motion.div>
         </div>
 
-        {/* Core Values */}
+        {/* Core Values - Staggered animation */}
         <div>
-          <h3 className="text-2xl font-bold mb-8 text-center text-primary">Our Core Values</h3>
+          <motion.h3 
+            className="text-2xl font-bold mb-8 text-center text-primary"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            Our Core Values
+          </motion.h3>
+          
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {coreValues.map((value, index) => (
               <motion.div
                 key={value.title}
-                variants={{
-                  hidden: { opacity: 0, y: 50 },
-                  visible: { opacity: 1, y: 0 },
+                initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: index * 0.15,
+                  type: "spring",
+                  stiffness: 100
                 }}
-                initial="hidden"
-                animate={controls}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ 
+                  y: -5,
+                  transition: { duration: 0.2 }
+                }}
                 className="h-full"
               >
-                <Card className="h-full shadow-md hover:shadow-lg transition-shadow border-0 bg-gradient-to-b from-white to-muted/50">
+                <Card className="h-full shadow-md hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-b from-white to-muted/50">
                   <CardContent className="p-6">
                     <div className="text-primary font-bold text-xl mb-3">{value.title}</div>
                     <p className="text-muted-foreground">{value.description}</p>
