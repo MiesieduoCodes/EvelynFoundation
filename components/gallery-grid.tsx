@@ -26,76 +26,55 @@ export function GalleryGrid() {
   const controls = useAnimation()
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
-  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set())
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  // Debug: Verify Firebase connection
-  useEffect(() => {
-    console.log("Firebase database instance:", database)
-    if (!database) {
-      console.error("Firebase database is not initialized")
-      setError("Failed to connect to database")
-    }
-  }, [])
-
   // Fetch images from Firebase
   useEffect(() => {
-    console.log("Starting gallery images fetch...")
     const galleryRef = dbRef(database, 'galleryImages')
     
     const unsubscribe = onValue(galleryRef, (snapshot) => {
       try {
-        console.log("Received Firebase snapshot:", snapshot)
         const data = snapshot.val()
-        console.log("Raw Firebase data:", data)
-        
         if (data) {
           const imagesArray = Object.keys(data).map(key => {
-            const imgData = data[key]
-            // Handle both imageUrl and image fields for backward compatibility
-            const imageUrl = imgData.imageUrl || imgData.image
-            if (!imageUrl) {
-              console.warn(`Image ${key} has no valid URL:`, imgData)
-            }
+            const item = data[key]
+            let imageUrl = item.imageUrl || item.image || ""
             
+            // Convert Firebase Storage URLs if needed
+            if (imageUrl.startsWith('gs://')) {
+              imageUrl = `https://firebasestorage.googleapis.com/v0/b/${
+                imageUrl.replace('gs://', '').split('/')[0]
+              }/o/${encodeURIComponent(imageUrl.split('/').slice(1).join('/'))}?alt=media`
+            }
+
             return {
               id: key,
-              title: imgData.title || "Untitled",
-              description: imgData.description || "",
-              imageUrl: imageUrl || "",
-              createdAt: imgData.createdAt || Date.now()
+              title: item.title || "",
+              description: item.description || "",
+              imageUrl: imageUrl,
+              createdAt: item.createdAt || Date.now()
             }
-          })
-          
-          // Filter out images with empty URLs
-          const validImages = imagesArray.filter(img => img.imageUrl)
-          console.log("Valid images:", validImages)
-          
-          // Sort by creation date (newest first)
-          const sortedImages = validImages.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
-          setGalleryImages(sortedImages)
+          }).filter(img => img.imageUrl) // Filter out images with empty URLs
+
+          setGalleryImages(imagesArray.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)))
         } else {
-          console.log("No data found at 'galleryImages' path")
           setGalleryImages([])
         }
         setLoading(false)
       } catch (err) {
-        console.error("Error processing gallery data:", err)
-        setError('Failed to process gallery data. Check console for details.')
+        console.error("Error fetching gallery images:", err)
+        setError('Failed to load gallery images. Please try again later.')
         setLoading(false)
       }
     }, (error) => {
-      console.error("Firebase read error:", error)
-      setError(`Database error: ${error.message}`)
+      console.error("Firebase error:", error)
+      setError('Failed to connect to gallery. Please check your connection.')
       setLoading(false)
     })
   
-    return () => {
-      console.log("Cleaning up Firebase listener")
-      unsubscribe()
-    }
+    return () => unsubscribe()
   }, [])
 
   const totalPages = Math.ceil(galleryImages.length / ITEMS_PER_PAGE)
@@ -115,47 +94,16 @@ export function GalleryGrid() {
     controls.start("visible")
   }, [currentPage, controls])
 
-  // Preload images with error handling
-  useEffect(() => {
-    if (!displayedImages.length) return
-
-    console.log("Preloading images for current page...")
-    const newLoadedImages = new Set(loadedImages)
-
-    displayedImages.forEach((image) => {
-      if (!image.imageUrl) {
-        console.warn(`Image ${image.id} has no URL, skipping preload`)
-        return
-      }
-
-      if (!loadedImages.has(image.id)) {
-        console.log(`Preloading image: ${image.imageUrl}`)
-        const img = new window.Image()
-        img.src = image.imageUrl
-        img.onload = () => {
-          console.log(`Successfully loaded: ${image.imageUrl}`)
-          newLoadedImages.add(image.id)
-          setLoadedImages(new Set(newLoadedImages))
-        }
-        img.onerror = () => {
-          console.error(`Failed to load: ${image.imageUrl}`)
-          newLoadedImages.add(image.id) // Mark as loaded to prevent infinite retry
-          setLoadedImages(new Set(newLoadedImages))
-        }
-      }
-    })
-  }, [displayedImages])
-
   const handleNextImage = () => {
     if (!selectedImage) return
-    const currentIndex = galleryImages.findIndex((img) => img.id === selectedImage.id)
+    const currentIndex = galleryImages.findIndex(img => img.id === selectedImage.id)
     const nextIndex = (currentIndex + 1) % galleryImages.length
     setSelectedImage(galleryImages[nextIndex])
   }
 
   const handlePreviousImage = () => {
     if (!selectedImage) return
-    const currentIndex = galleryImages.findIndex((img) => img.id === selectedImage.id)
+    const currentIndex = galleryImages.findIndex(img => img.id === selectedImage.id)
     const previousIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length
     setSelectedImage(galleryImages[previousIndex])
   }
@@ -183,7 +131,6 @@ export function GalleryGrid() {
       <section className="py-12 md:py-16 lg:py-20">
         <div className="container text-center">
           <p className="text-red-500">{error}</p>
-          <p className="text-sm text-muted-foreground mt-2">Check browser console for details</p>
           <Button 
             variant="outline" 
             className="mt-4"
@@ -201,9 +148,6 @@ export function GalleryGrid() {
       <section className="py-12 md:py-16 lg:py-20">
         <div className="container text-center">
           <p className="text-muted-foreground">No gallery images found.</p>
-          <p className="text-sm text-muted-foreground mt-2">
-            Add images to the 'galleryImages' path in your Firebase database
-          </p>
         </div>
       </section>
     )
@@ -222,56 +166,43 @@ export function GalleryGrid() {
           transition={{ duration: 0.5 }}
           className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {displayedImages.map((image, index) => {
-            console.log(`Rendering image ${image.id} with URL: ${image.imageUrl}`)
-            
-            return (
-              <motion.div
-                key={image.id} 
-                variants={{
-                  hidden: { opacity: 0, y: 50 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.03 }}
-              >
-                <Card className="overflow-hidden cursor-pointer group" onClick={() => setSelectedImage(image)}>
-                  <div className="relative aspect-square">
-                    {loadedImages.has(image.id) ? (
-                      <>
-                        <Image
-                          src={image.imageUrl}
-                          alt={image.title || "Gallery image"}
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                          priority={index < 3}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          onError={(e) => {
-                            console.error(`Image load failed: ${image.imageUrl}`)
-                            console.error("Error details:", e)
-                            // You could set a fallback image here:
-                            // e.currentTarget.src = '/fallback-image.jpg'
-                          }}
-                          onLoad={() => console.log(`Image loaded: ${image.imageUrl}`)}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                          <h3 className="text-white font-medium">{image.title}</h3>
-                        </div>
-                      </>
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center bg-muted/50">
-                        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-                        <span className="sr-only">Loading image...</span>
-                      </div>
-                    )}
+          {displayedImages.map((image, index) => (
+            <motion.div
+              key={image.id} 
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ scale: 1.03 }}
+            >
+              <Card className="overflow-hidden cursor-pointer group" onClick={() => setSelectedImage(image)}>
+                <div className="relative aspect-square">
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={image.imageUrl}
+                      alt={image.title || "Gallery image"}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      priority={index < 3}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      onError={(e) => {
+                        console.error(`Image load failed: ${image.imageUrl}`)
+                        const target = e.currentTarget
+                        target.src = '/image-placeholder.jpg'
+                        target.onerror = null
+                      }}
+                    />
                   </div>
-                </Card>
-              </motion.div>
-            )
-          })}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <h3 className="text-white font-medium">{image.title}</h3>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          ))}
         </motion.div>
 
-        {/* Pagination Controls */}
         {totalPages > 1 && (
           <div className="mt-12 flex justify-center items-center gap-2">
             <Button
@@ -283,7 +214,7 @@ export function GalleryGrid() {
               <ChevronLeft className="h-4 w-4" />
             </Button>
 
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
               <Button
                 key={page}
                 variant={currentPage === page ? "default" : "outline"}
@@ -306,7 +237,6 @@ export function GalleryGrid() {
           </div>
         )}
 
-        {/* Image Modal */}
         <AnimatePresence>
           {selectedImage && (
             <Dialog open={!!selectedImage} onOpenChange={(open) => !open && setSelectedImage(null)}>
@@ -324,7 +254,9 @@ export function GalleryGrid() {
                     priority
                     onError={(e) => {
                       console.error("Modal image failed to load:", selectedImage.imageUrl)
-                      // e.currentTarget.src = '/fallback-image.jpg'
+                      const target = e.currentTarget
+                      target.src = '/image-placeholder.jpg'
+                      target.onerror = null
                     }}
                   />
                   <Button
