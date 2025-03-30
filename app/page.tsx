@@ -22,7 +22,7 @@ export default function Home() {
             <Button 
               asChild 
               variant="outline"
-              className="hidden sm:inline-flex hover:scale-105 transition-transform"
+              className=" sm:inline-flex hover:scale-105 transition-transform"
             >
               <a href="/contact">Contact Us</a>
             </Button>
