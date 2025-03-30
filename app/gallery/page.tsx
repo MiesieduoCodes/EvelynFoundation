@@ -65,7 +65,7 @@ export default function GalleryPage() {
 >
   <div className="absolute inset-0 overflow-hidden">
     <motion.div 
-      className="absolute inset-0 bg-[url('/images/gallery-bg.jpg')] bg-cover bg-center"
+      className="absolute inset-0 bg-[url('https://images.pexels.com/photos/1912448/pexels-photo-1912448.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')] bg-cover bg-center"
       style={{
         scale: useTransform(scrollYProgress, [0, 1], [1, 1.2]),
         y: useTransform(scrollYProgress, [0, 1], [0, 100]),
