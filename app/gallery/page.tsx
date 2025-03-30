@@ -59,35 +59,40 @@ export default function GalleryPage() {
       </motion.header>
 
       <main className="flex-1 overflow-hidden">
-        <motion.section 
-          className="relative h-[60vh] flex items-center justify-center bg-gradient-to-b from-primary/10 to-background"
-          style={{ opacity }}
-        >
-          <div className="absolute inset-0 overflow-hidden">
-            <motion.div 
-              className="absolute inset-0 bg-[url('/images/gallery-bg.jpg')] bg-cover bg-center"
-              style={{
-                scale: useTransform(scrollYProgress, [0, 1], [1, 1.2]),
-                y: useTransform(scrollYProgress, [0, 1], [0, 100])
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/30 to-background" />
-          </div>
-          
-          <motion.div 
-            className="container relative z-10 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-              Our <span className="text-primary">Gallery</span>
-            </h1>
-            <p className="mt-6 max-w-2xl mx-auto text-lg text-muted-foreground">
-              Capturing moments from our events, programs, and community activities
-            </p>
-          </motion.div>
-        </motion.section>
+<motion.section 
+  className="relative h-[60vh] flex items-center justify-center"
+  style={{ opacity }}
+>
+  <div className="absolute inset-0 overflow-hidden">
+    <motion.div 
+      className="absolute inset-0 bg-[url('/images/gallery-bg.jpg')] bg-cover bg-center"
+      style={{
+        scale: useTransform(scrollYProgress, [0, 1], [1, 1.2]),
+        y: useTransform(scrollYProgress, [0, 1], [0, 100]),
+        opacity: useTransform(scrollYProgress, [0, 0.5], [1, 0.8]) // Added opacity transform
+      }}
+    />
+    <div 
+      className="absolute inset-0 bg-gradient-to-b from-background/30 to-background"
+      style={{ opacity: useTransform(scrollYProgress, [0, 0.5], [0.7, 0.9]) }} // Gradient overlay opacity
+    />
+  </div>
+  
+  <motion.div 
+    className="container relative z-10 text-center"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+    style={{ opacity: useTransform(scrollYProgress, [0, 0.5], [1, 0.9]) }} // Content opacity
+  >
+    <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+      Our <span className="text-primary">Gallery</span>
+    </h1>
+    <p className="mt-6 max-w-2xl mx-auto text-lg text-muted-foreground">
+      Capturing moments from our events, programs, and community activities
+    </p>
+  </motion.div>
+</motion.section>
 
         <motion.section
           className="py-16 md:py-24"
