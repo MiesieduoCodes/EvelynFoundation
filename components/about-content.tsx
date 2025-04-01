@@ -72,7 +72,7 @@ export function AboutContent() {
             className="relative h-[400px] rounded-xl overflow-hidden shadow-lg"
           >
             <Image
-              src="/images/about/evelyn-portrait.jpg"
+              src="/images/Mrs_Evelyn.jpeg"
               alt="Founder Evelyn Oweibo"
               fill
               className="object-cover"

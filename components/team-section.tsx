@@ -11,7 +11,7 @@ const teamMembers = [
     name: "Evelyn Oweibo",
     role: "Founder",
     bio: "Evelyn Oweibo, born on February 20, 1979, in Lagos, Nigeria, is an accountant and founder of the Evelyn Oweibo Foundation. A graduate of Rivers State Polytechnic, she has worked with the Bayelsa State Council for Arts and Culture and started several businesses. Passionate about helping others, she established her foundation in 2021 to support the less privileged. Currently residing in the USA, she remains committed to inspiring hope.",
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/Mrs_Evelyn.jpeg",
   },
   {
     name: "Solomon Diepreye",
