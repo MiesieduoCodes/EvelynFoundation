@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button"
 import { MainNav } from "@/components/main-nav"
 import { PageHeader } from "@/components/page-header"
