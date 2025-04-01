@@ -6,6 +6,7 @@ import { MainNav } from "@/components/main-nav"
 import { PageHeader } from "@/components/page-header"
 import { GalleryGrid } from "@/components/gallery-grid"
 import { useEffect, useRef } from "react"
+import Image from "next/image"
 
 export default function GalleryPage() {
   const targetRef = useRef<HTMLDivElement>(null)
@@ -60,25 +61,42 @@ export default function GalleryPage() {
 
       <main className="flex-1 overflow-hidden">
         <motion.section 
-          className="relative h-[60vh] flex items-center justify-center bg-gradient-to-b from-primary/10 to-background"
+          className="relative h-[60vh] flex items-center justify-center overflow-hidden"
           style={{ opacity }}
         >
-          <div className="absolute inset-0 overflow-hidden">
-            <motion.div 
-              className="absolute inset-0 bg-[url('/images/gallery-bg.jpg')] bg-cover bg-center"
-              style={{
-                scale: useTransform(scrollYProgress, [0, 1], [1, 1.2]),
-                y: useTransform(scrollYProgress, [0, 1], [0, 100])
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/30 to-background" />
-          </div>
-          
+          {/* Background Image with Parallax Effect */}
           <motion.div 
-            className="container relative z-10 text-center"
+            className="absolute inset-0 w-full h-full"
+            style={{
+              scale: useTransform(scrollYProgress, [0, 1], [1, 1.2]),
+              y: useTransform(scrollYProgress, [0, 1], [0, 100]),
+              opacity: useTransform(scrollYProgress, [0, 0.5], [1, 0.85])
+            }}
+          >
+            <Image
+              src="https://images.pexels.com/photos/14700304/pexels-photo-14700304.jpeg"
+              alt="Art gallery exhibition space"
+              fill
+              className="object-cover object-center"
+              priority
+              quality={90}
+              sizes="100vw"
+            />
+          </motion.div>
+
+          {/* Gradient Overlay */}
+          <div 
+            className="absolute inset-0 bg-gradient-to-b from-background/40 to-background"
+            style={{ opacity: useTransform(scrollYProgress, [0, 0.5], [0.7, 0.9]) }}
+          />
+
+          {/* Content */}
+          <motion.div 
+            className="container relative z-10 text-center px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            style={{ opacity: useTransform(scrollYProgress, [0, 0.5], [1, 0.9]) }}
           >
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
               Our <span className="text-primary">Gallery</span>
@@ -130,4 +148,4 @@ export default function GalleryPage() {
       </main>
     </div>
   )
-}
+        }
