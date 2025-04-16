@@ -47,7 +47,7 @@ export function Footer() {
               <p className="text-sm text-muted-foreground">Austell Ga 30106,</p>
               <p className="text-sm text-muted-foreground">USA</p>
               <p className="text-sm text-muted-foreground mt-2">info@evelynoweibo.org</p>
-              <p className="text-sm text-muted-foreground">(123) 456-7890</p>
+              <p className="text-sm text-muted-foreground">+1 (404) 910-8449</p>
             </address>
           </div>
           <div>

@@ -8,7 +8,7 @@ import { Users, Clock, CalendarHeart, Award } from "lucide-react"
 const stats = [
   {
     title: "Elderly Served",
-    value: "5,000+",
+    value: "500+",
     icon: Users,
     color: "text-blue-600",
     bgColor: "bg-blue-100",
@@ -29,7 +29,7 @@ const stats = [
   },
   {
     title: "Years of Service",
-    value: "15+",
+    value: "5+",
     icon: Award,
     color: "text-purple-600",
     bgColor: "bg-purple-100",
