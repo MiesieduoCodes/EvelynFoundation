@@ -89,7 +89,7 @@ export default function GalleryPage() {
           {/* Gradient Overlay */}
           <div
             className="absolute inset-0 bg-gradient-to-b from-background/40 to-background"
-            style={{ opacity: useTransform(scrollYProgress, [0, 0.5], [0.7, 0.9]) }}
+            style={{ opacity: useTransform(scrollYProgress, [0, 0.5], [0.7, 0.9]) as any }}
           />
 
           {/* Content */}
