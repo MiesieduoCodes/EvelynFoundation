@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { signOut } from "firebase/auth"
 import { auth } from "@/lib/firebase"
-import { LayoutDashboard, Image, LogOut, Heart } from "lucide-react"
+import { LayoutDashboard, ImageIcon, LogOut, Heart, Video } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -17,7 +17,12 @@ const sidebarItems = [
   {
     title: "Gallery",
     href: "/admin/gallery",
-    icon: Image,
+    icon: ImageIcon,
+  },
+  {
+    title: "Videos",
+    href: "/admin/videos",
+    icon: Video,
   },
 ]
 
@@ -25,7 +30,8 @@ export function AdminSidebar() {
   const pathname = usePathname()
 
   const handleSignOut = async () => {
-    if (auth) { // Check if auth is defined
+    if (auth) {
+      // Check if auth is defined
       try {
         await signOut(auth)
       } catch (error) {

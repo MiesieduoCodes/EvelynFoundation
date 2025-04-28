@@ -3,16 +3,18 @@
 import { motion, useScroll, useTransform } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { MainNav } from "@/components/main-nav"
-import { PageHeader } from "@/components/page-header"
 import { GalleryGrid } from "@/components/gallery-grid"
-import { useEffect, useRef } from "react"
+import { VideoGallery } from "@/components/video-gallery"
+import { useRef } from "react"
 import Image from "next/image"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ImageIcon, VideoIcon } from "lucide-react"
 
 export default function GalleryPage() {
   const targetRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
   })
 
   // Parallax effects
@@ -27,9 +29,9 @@ export default function GalleryPage() {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.3
-      }
-    }
+        delayChildren: 0.3,
+      },
+    },
   }
 
   const itemVariants = {
@@ -38,14 +40,14 @@ export default function GalleryPage() {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.5
-      }
-    }
+        duration: 0.5,
+      },
+    },
   }
 
   return (
     <div className="flex min-h-screen flex-col" ref={targetRef}>
-      <motion.header 
+      <motion.header
         className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
         style={{ y: headerY }}
       >
@@ -60,17 +62,17 @@ export default function GalleryPage() {
       </motion.header>
 
       <main className="flex-1 overflow-hidden">
-        <motion.section 
+        <motion.section
           className="relative h-[60vh] flex items-center justify-center overflow-hidden"
           style={{ opacity }}
         >
           {/* Background Image with Parallax Effect */}
-          <motion.div 
+          <motion.div
             className="absolute inset-0 w-full h-full"
             style={{
               scale: useTransform(scrollYProgress, [0, 1], [1, 1.2]),
               y: useTransform(scrollYProgress, [0, 1], [0, 100]),
-              opacity: useTransform(scrollYProgress, [0, 0.5], [1, 0.85])
+              opacity: useTransform(scrollYProgress, [0, 0.5], [1, 0.85]),
             }}
           >
             <Image
@@ -85,13 +87,13 @@ export default function GalleryPage() {
           </motion.div>
 
           {/* Gradient Overlay */}
-          <div 
+          <div
             className="absolute inset-0 bg-gradient-to-b from-background/40 to-background"
             style={{ opacity: useTransform(scrollYProgress, [0, 0.5], [0.7, 0.9]) }}
           />
 
           {/* Content */}
-          <motion.div 
+          <motion.div
             className="container relative z-10 text-center px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -107,29 +109,41 @@ export default function GalleryPage() {
           </motion.div>
         </motion.section>
 
-        <motion.section
-          className="py-16 md:py-24"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
+        <motion.section className="py-16 md:py-24" variants={containerVariants} initial="hidden" animate="visible">
           <div className="container">
             <motion.div variants={itemVariants} className="mb-16 text-center">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Recent Activities
-              </h2>
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Recent Activities</h2>
               <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
                 Browse through our collection of memorable moments
               </p>
             </motion.div>
 
             <motion.div variants={itemVariants} style={{ y: contentY }}>
-              <GalleryGrid />
+              <Tabs defaultValue="images" className="w-full">
+                <div className="flex justify-center mb-8">
+                  <TabsList>
+                    <TabsTrigger value="images" className="flex items-center gap-2">
+                      <ImageIcon className="h-4 w-4" />
+                      <span>Images</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="videos" className="flex items-center gap-2">
+                      <VideoIcon className="h-4 w-4" />
+                      <span>Videos</span>
+                    </TabsTrigger>
+                  </TabsList>
+                </div>
+                <TabsContent value="images">
+                  <GalleryGrid />
+                </TabsContent>
+                <TabsContent value="videos">
+                  <VideoGallery />
+                </TabsContent>
+              </Tabs>
             </motion.div>
           </div>
         </motion.section>
 
-        <motion.section 
+        <motion.section
           className="py-16 bg-gradient-to-b from-background to-primary/5"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -137,9 +151,7 @@ export default function GalleryPage() {
           viewport={{ once: true, margin: "-100px" }}
         >
           <div className="container text-center">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-6">
-              Want to see more?
-            </h2>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-6">Want to see more?</h2>
             <Button asChild size="lg" className="rounded-full">
               <a href="/contact">Contact Us</a>
             </Button>
@@ -148,4 +160,4 @@ export default function GalleryPage() {
       </main>
     </div>
   )
-        }
+}
