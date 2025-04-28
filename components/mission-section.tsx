@@ -2,39 +2,52 @@
 
 import { useEffect, useRef } from "react"
 import { motion, useInView, useAnimation } from "framer-motion"
-import { Heart, Users, Home, Award } from "lucide-react"
+import { Heart, Users, Utensils, Award } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Image from "next/image"
+import React from "react"
 
-const missions = [
+const missions: {
+  title: string;
+  description: string;
+  icon: keyof typeof iconMap;
+  image: string;
+}[] = [
   {
-    title: "Compassionate Care",
+    title: "Dignified Care",
     description:
-      "Providing personalized care services that respect the dignity and independence of every elderly individual.",
-    icon: Heart,
+      "Delivering compassionate care that upholds the dignity and independence of every senior citizen.",
+    icon: "Heart",
     image: "/images/DSC_0419.jpg",
   },
   {
-    title: "Community Building",
+    title: "Connecting Communities",
     description:
-      "Creating supportive communities where elderly individuals can form meaningful connections and combat isolation.",
-    icon: Users,
-    image: "/images/DSC_4607.JPG",
-  },
-  {
-    title: "Safe Housing",
-    description: "Ensuring elderly individuals have access to safe, comfortable, and affordable housing options.",
-    icon: Home,
+      "Fostering vibrant communities where seniors can build lasting relationships and overcome feelings of loneliness.",
+    icon: "Users",
     image: "/images/DSC_0377.JPG",
   },
   {
-    title: "Quality of Life",
+    title: "Nutritional Support",
+    description: "Ensuring seniors have access to healthy meals and nutrition education to enhance their well-being.",
+    icon: "Utensils",
+    image: "/images/DSC_4607.JPG",
+  },
+  {
+    title: "Enhanced Wellbeing",
     description:
-      "Developing programs that enhance the physical, mental, and emotional wellbeing of elderly individuals.",
-    icon: Award,
+      "Implementing initiatives that promote the physical, mental, and emotional health of seniors.",
+    icon: "Award",
     image: "/images/DSC_0327.JPG",  
   },
-]
+];
+
+const iconMap = {
+  Heart,
+  Users,
+  Utensils,
+  Award,
+};
 
 export function MissionSection() {
   const ref = useRef(null)
@@ -65,8 +78,7 @@ export function MissionSection() {
             Our Mission
           </h2>
           <p className="mt-6 text-xl text-muted-foreground max-w-3xl mx-auto">
-            We are committed to enhancing the quality of life for elderly individuals through compassionate care and
-            community support.
+            We are committed to enhancing the quality of life for elderly individuals through compassionate care and community support.
           </p>
         </motion.div>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -95,7 +107,7 @@ export function MissionSection() {
                 <CardHeader className="pb-2">
                   <div className="flex items-center gap-4">
                     <div className="p-3 rounded-full bg-primary/10">
-                      <mission.icon className="h-6 w-6 text-primary" />
+                      {React.createElement(iconMap[mission.icon], { className: "h-6 w-6 text-primary" })}
                     </div>
                     <CardTitle className="text-lg">{mission.title}</CardTitle>
                   </div>
