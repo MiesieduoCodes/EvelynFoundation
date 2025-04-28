@@ -57,7 +57,7 @@ export function HeroSection() {
           className="relative h-[300px] w-full md:h-[400px] md:w-1/2 rounded-lg overflow-hidden"
         >
           <Image
-            src="https://images.pexels.com/photos/8580732/pexels-photo-8580732.jpeg?auto=compress&cs=tinysrgb&w=600"
+            src="/images/DSC_0401.jpg"
             alt="Elderly people enjoying community activities"
             fill
             className="object-cover"

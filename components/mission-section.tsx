@@ -12,27 +12,27 @@ const missions = [
     description:
       "Providing personalized care services that respect the dignity and independence of every elderly individual.",
     icon: Heart,
-    image: "https://images.pexels.com/photos/7551677/pexels-photo-7551677.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "/images/DSC_0419.jpg",
   },
   {
     title: "Community Building",
     description:
       "Creating supportive communities where elderly individuals can form meaningful connections and combat isolation.",
     icon: Users,
-    image: "https://images.pexels.com/photos/8815226/pexels-photo-8815226.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "/images/DSC_4607.JPG",
   },
   {
     title: "Safe Housing",
     description: "Ensuring elderly individuals have access to safe, comfortable, and affordable housing options.",
     icon: Home,
-    image: "https://images.pexels.com/photos/7578992/pexels-photo-7578992.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "/images/DSC_0377.JPG",
   },
   {
     title: "Quality of Life",
     description:
       "Developing programs that enhance the physical, mental, and emotional wellbeing of elderly individuals.",
     icon: Award,
-    image: "https://images.pexels.com/photos/103127/pexels-photo-103127.jpeg?auto=compress&cs=tinysrgb&w=600",  
+    image: "/images/DSC_0327.JPG",  
   },
 ]
 
