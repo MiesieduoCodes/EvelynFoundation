@@ -76,7 +76,7 @@ export default function GalleryPage() {
             }}
           >
             <Image
-              src="https://images.pexels.com/photos/14700304/pexels-photo-14700304.jpeg"
+              src=""
               alt="Art gallery exhibition space"
               fill
               className="object-cover object-center"
