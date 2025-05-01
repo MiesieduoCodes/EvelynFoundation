@@ -76,7 +76,7 @@ export default function GalleryPage() {
             }}
           >
             <Image
-              src=""
+              src="/images/DSC_0409.JPG"
               alt="Art gallery exhibition space"
               fill
               className="object-cover object-center"
