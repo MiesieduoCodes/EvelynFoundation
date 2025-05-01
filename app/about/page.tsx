@@ -48,7 +48,7 @@ export default function AboutPage() {
             }}
           >
             <Image
-              src="https://images.pexels.com/photos/6646899/pexels-photo-6646899.jpeg"
+              src="/images/DSC_0348.jpg"
               alt="Team working together at Evelyn Oweibo Foundation"
               fill
               className="object-cover object-center"
